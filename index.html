@@ -162,9 +162,11 @@
       <div class="site-header__bar flex items-center justify-between py-4">
         <!-- Left: Logo + Desktop Nav -->
         <div class="flex items-center gap-8">
-          <a href="#work" class="site-brand inline-flex items-center gap-2">
+          <a href="#work" class="site-brand inline-flex items-center gap-2" aria-label="Tom Digital home">
             <span
-              class="site-brand__mark inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-300 bg-white text-zinc-900 text-sm font-medium tracking-tight">TH</span>
+              class="site-brand__mark inline-flex items-center justify-center">
+              <img src="img/tom-digital-logo-transparent.png" alt="" class="site-brand__logo" aria-hidden="true">
+            </span>
           </a>
 
           <nav class="site-nav hidden md:flex items-center gap-3 text-sm font-medium text-zinc-700">
@@ -213,38 +215,45 @@
   <main>
     <!-- Hero -->
     <section id="work" class="relative overflow-visible">
-      <div class="mx-auto max-w-7xl px-6">
-        <!-- Oversized Name - Fit to Width -->
-        <h1 class="mt-8 leading-none font-semibold tracking-tight uppercase">
-          <span class="text-fit">
-            <span><span>Tom Hernandez</span></span>
-            <span aria-hidden="true">Tom Hernandez</span>
-          </span>
-        </h1>
+      <div class="hero-mesh" aria-hidden="true">
+        <span class="hero-mesh__blob hero-mesh__blob--one"></span>
+        <span class="hero-mesh__blob hero-mesh__blob--two"></span>
+        <span class="hero-mesh__blob hero-mesh__blob--three"></span>
+        <span class="hero-mesh__blob hero-mesh__blob--four"></span>
+        <span class="hero-mesh__blob hero-mesh__blob--five"></span>
+        <span class="hero-mesh__blob hero-mesh__blob--six"></span>
+      </div>
+      <div class="hero-shell mx-auto max-w-7xl px-6">
+        <div class="hero-heading">
+          <h1 class="hero-display font-semibold tracking-tight uppercase">
+            <span class="hero-display__line hero-display__line--primary">WEB ADMINISTRATOR</span>
+            <span class="hero-display__line hero-display__line--secondary">E-COMMERCE &bull; AUTOMATION</span>
+          </h1>
+        </div>
 
-        <!-- Feature Image -->
-        <div class="hero-media relative mt-6 overflow-hidden rounded-md border border-zinc-200 bg-zinc-100">
-          <img src="img/three side plants.png" alt="" aria-hidden="true" class="hero-side-plant">
-          <img src="img/hero.png" alt="Hero image" class="hero-image w-full">
-          <img src="img/plant_bg.png" alt="" aria-hidden="true" class="hero-plant-image">
-          <img src="img/plant_bg.png" alt="" aria-hidden="true" class="hero-plant-image">
-          <div class="hero-media__copy pointer-events-none absolute">
-            <h2 class="hero-tagline hero-tagline--overlay">
-              <span class="text-fit hero-tagline-fit hero-tagline-fit--overlay">
-                <span><span class="hero-tagline-fit__text">Plant grower at heart,<br>building campaigns that
-                    convert<br>from the start.</span></span>
-                <span aria-hidden="true">Plant grower at heart,<br>building campaigns that convert<br>from the
-                  start.</span>
-              </span>
-            </h2>
-            <div class="hero-cta pointer-events-auto">
-              <a href="#projects"
-                class="section-cta section-cta--solid inline-flex items-center gap-2 rounded-md bg-zinc-900 px-4 py-2.5 text-white text-sm font-medium tracking-tight hover:bg-black transition">
-                <i data-lucide="arrow-right" class="h-4 w-4"></i>
-                <span>View Campaign Project</span>
-              </a>
+        <div class="hero-grid">
+          <article class="hero-card hero-card--unified">
+            <div class="hero-card__column hero-card__column--copy">
+              <p class="hero-card__eyebrow">WEB SOLUTIONS THAT DRIVE RESULTS</p>
+              <p class="hero-card__title">
+                I build fast, reliable websites, automate workflows, and improve online stores to help businesses
+                grow.
+              </p>
+              <p class="hero-card__body">Hi, I&apos;m Tom Hernandez.</p>
+              <p class="hero-card__body">
+                I build websites that solve real business problems. Whether it&apos;s improving a website, launching a
+                Shopify store, managing content, or setting up email automation, I enjoy finding ways to make things
+                simpler, faster, and easier for people to use.
+              </p>
+              <div class="hero-card__actions">
+                <a href="#projects" class="hero-button hero-button--primary">VIEW MY WORK</a>
+              </div>
             </div>
-          </div>
+
+            <figure class="hero-card__column hero-card__column--image">
+              <img src="img/hero-port-clean.png" alt="Portrait of Tom Hernandez" class="hero-image">
+            </figure>
+          </article>
         </div>
       </div>
     </section>
@@ -321,8 +330,7 @@
             <ul class="skills-category__list" role="list">
               <li>
                 <span class="skills-pill">
-                  <img class="skills-pill__icon skills-pill__icon--klaviyo"
-                    src="https://upload.wikimedia.org/wikipedia/commons/2/22/Klaviyo-primary-logo-charcoal.svg" alt=""
+                  <img class="skills-pill__icon skills-pill__icon--klaviyo" src="img/klaviyo.svg" alt=""
                     aria-hidden="true" loading="lazy" decoding="async">
                   <span class="skills-pill__label">Klaviyo</span>
                 </span>
@@ -377,22 +385,24 @@
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="about-panels grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div class="about-copy lg:col-span-6">
-            <p class="mt-10 text-zinc-600 leading-relaxed text-base">
-              I build websites, email campaigns, and systems focused on real results &mdash; from capturing users to
-              guiding them through clear, structured experiences. My work centers on CMS, email marketing, and
-              automation, and I have built projects that simulate real workflows, including a campaign with a landing
-              page, email sequence, and basic automation flow. I also use AI to streamline content and improve how I
-              work.
-            </p>
-            <p class="mt-4 text-zinc-600 leading-relaxed text-base">
-              Outside of that, I'm usually in nature &mdash; hiking, around plants and flowers, or visiting botanical
-              gardens. Spring is my favorite season, when everything starts to grow again. It helps me slow down, stay
-              present, and appreciate the moment.
-            </p>
+            <div class="about-copy__body">
+              <p class="text-zinc-600">
+                I enjoy building websites that solve real business problems. Whether it's improving a website,
+                launching a Shopify store, managing content, or setting up email automation, I like finding ways to
+                make things simpler, faster, and easier for people to use. I work with local businesses while
+                continuing to build new projects that challenge me and help me grow.
+              </p>
+              <p class="text-zinc-600">
+                I enjoy taking an idea from concept to launch, paying attention to the details that create a better
+                experience for both the business and its customers. Outside of work, you'll usually find me hiking,
+                exploring botanical gardens, or spending time around plants and flowers. Being outdoors helps me slow
+                down, clear my mind, and come back with a fresh perspective for the next project.
+              </p>
+            </div>
 
-            <div class="mt-8 flex flex-wrap items-center gap-3">
+            <div class="about-copy__actions flex flex-wrap items-center gap-3">
               <a href="#projects"
                 class="section-cta section-cta--solid inline-flex items-center gap-2 rounded-md bg-zinc-900 px-4 py-2.5 text-white text-sm font-medium tracking-tight hover:bg-black transition">
                 <i data-lucide="arrow-right" class="h-4 w-4"></i>
@@ -406,13 +416,13 @@
               </a>
             </div>
           </div>
-          <div class="mt-10 lg:col-span-6">
-            <div class="about-portrait-card relative aspect-[4/3] overflow-hidden rounded-md bg-white">
+          <div class="about-media lg:col-span-6">
+            <div class="about-portrait-card relative overflow-hidden rounded-md bg-white">
               <img
-                src="https://images.unsplash.com/photo-1544006659-f0b21884ce1d?q=80&amp;w=1500&amp;auto=format&amp;fit=crop"
-                alt="Portrait" class="h-full w-full object-cover">
+                src="img/about-section-artwork.png"
+                alt="Illustration of Tom Hernandez working outdoors on a laptop with a city skyline in the background" class="about-portrait-card__image">
             </div>
-            <p class="about-caption mt-4 text-sm text-zinc-500">Focused on clarity, performance, and timeless
+            <p class="about-caption text-sm text-zinc-500">Focused on clarity, performance, and timeless
               aesthetics.</p>
           </div>
         </div>
@@ -444,10 +454,11 @@
           <!-- Card 1 -->
           <article id="featuredProjectCard"
             class="group featured-project-card rounded-md border border-zinc-200 bg-white overflow-hidden"
-            data-project-card data-categories="website"></article>
+            data-project-card data-project-status="complete" data-categories="website"></article>
 
           <!-- Card 2 -->
           <article class="group rounded-md border border-zinc-200 bg-white overflow-hidden" data-project-card
+            data-project-status="unfinished"
             data-categories="email">
             <a href="#newpage" target="_blank" rel="noopener noreferrer"
               class="relative overflow-hidden aspect-[5/6] block"
@@ -489,6 +500,7 @@
 
           <!-- Card 3 -->
           <article class="group rounded-md border border-zinc-200 bg-white overflow-hidden" data-project-card
+            data-project-status="unfinished"
             data-categories="email">
             <a href="#newpage" target="_blank" rel="noopener noreferrer"
               class="relative overflow-hidden aspect-[5/6] block"
@@ -530,6 +542,7 @@
 
           <!-- Card 4 -->
           <article class="group rounded-md border border-zinc-200 bg-white overflow-hidden" data-project-card
+            data-project-status="unfinished"
             data-categories="website">
             <a href="#newpage" target="_blank" rel="noopener noreferrer"
               class="relative overflow-hidden aspect-[5/6] block"
@@ -580,10 +593,14 @@
         <div class="grid grid-cols-2 gap-y-8 md:grid-cols-3 md:gap-10">
           <div class="pr-4 md:pr-0">
             <a href="#work"
-              class="inline-flex h-10 w-10 items-center justify-center rounded-md border border-zinc-300 bg-white text-zinc-900 text-sm font-medium tracking-tight">
-              TH</a>
-            <p class="mt-4 text-sm text-zinc-600 max-w-xs">Inspired by the outdoors, bringing fresh air to the
-              web.</p>
+              class="footer-brand inline-flex items-center justify-center"
+              aria-label="Tom Digital home">
+              <img src="img/tom-digital-logo-transparent.png" alt="" class="footer-brand__logo" aria-hidden="true">
+            </a>
+            <div class="mt-4 text-sm text-zinc-600 max-w-xs">
+              <p>Tom Digital</p>
+              <p class="mt-1">Designed &amp; Developed by Tom Hernandez</p>
+            </div>
             <div class="mt-4 flex items-center gap-3">
               <a href="https://www.linkedin.com/in/tom-hernandez-dev/" target="_blank" rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -625,22 +642,22 @@
         </div>
 
         <div class="mt-12 flex items-center justify-between border-t border-zinc-200 pt-6 text-xs text-zinc-500">
-          <span>&copy; <span id="year"></span> Tom Hernandez</span>
-          <span>Crafted with intention.</span>
+          <span>&copy; <span id="year">2026</span> Tom Digital. All rights reserved.</span>
         </div>
       </div>
     </footer>
   </main>
 
   <!-- Exit Intent Modal -->
-  <div id="exitModal" class="modal hidden">
+  <div id="exitModal" class="modal hidden" aria-hidden="true">
     <div class="modal-overlay"></div>
 
-    <div class="modal-box">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle"
+      aria-describedby="modalCaseStudyContent" tabindex="-1">
       <div class="modal-heading-row">
         <div class="modal-heading-shell">
           <div class="section-header modal-section-header">
-            <h2>About My Work</h2>
+            <h2 id="modalTitle">SwerbzShotz Photography Case Study</h2>
             <div class="accent-line" aria-hidden="true"></div>
           </div>
         </div>
@@ -648,35 +665,70 @@
       </div>
 
       <div class="modal-content-grid">
-        <div class="modal-copy">
-          <p>
-            One of my recent projects is a caf&eacute; campaign where I designed a landing page to capture users, built
-            a 3-email sequence to guide them through the experience, and created a simple automation flow to model how
-            businesses convert visitors into customers.
-          </p>
+        <div class="modal-copy" id="modalCaseStudyContent">
+          <div class="modal-copy__section">
+            <h3>Project Overview</h3>
+            <p>
+              SwerbzShotz is a photography website I designed and developed for a real Los Angeles client. The goal
+              was to create a modern online portfolio that makes it easy for visitors to explore the photographer's
+              work, understand the available services, and submit a booking inquiry.
+            </p>
+          </div>
 
-          <p>
-            Once it&rsquo;s set up, the system runs smoothly on its own &mdash; capturing users, sending emails, and
-            moving them through the flow without constant manual input.
-          </p>
-        </div>
+          <div class="modal-copy__section">
+            <h3>The Challenge</h3>
+            <p>
+              The client needed a stronger online presence with clear gallery navigation, a professional presentation,
+              and a simple path from viewing photos to requesting a session.
+            </p>
+          </div>
 
-        <div class="modal-media">
-          <div class="modal-media-frame">
-            <img class="modal-media-image"
-              src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&amp;w=1600&amp;auto=format&amp;fit=crop"
-              alt="Cafe campaign landing page preview" loading="lazy">
+          <div class="modal-copy__section">
+            <h3>My Solution</h3>
+            <p>
+              I built a responsive website with custom galleries, mobile-friendly navigation, clear calls to action,
+              and an online booking flow. I also added analytics, SEO improvements, contact form handling, and
+              deployment support.
+            </p>
+          </div>
+
+          <div class="modal-copy__section">
+            <h3>My Role</h3>
+            <p>
+              I handled the website design, frontend development, content organization, analytics setup, deployment,
+              and revisions based on client feedback.
+            </p>
           </div>
         </div>
-      </div>
 
-      <div class="modal-action-row">
-        <button id="closeModalBottom"
-          class="section-cta section-cta--solid modal-action inline-flex items-center justify-center gap-2 rounded-md bg-zinc-900 px-4 py-2.5 text-white text-sm font-medium tracking-tight hover:bg-black transition"
-          type="button">
-          <span>View Projects</span>
-          <i data-lucide="arrow-right" class="h-4 w-4"></i>
-        </button>
+        <div class="modal-aside">
+          <div class="modal-media">
+            <div class="modal-media-frame">
+              <img class="modal-media-image"
+                src="img/swerbzshotz-preview.png"
+                alt="SwerbzShotz photography website homepage preview" loading="lazy">
+            </div>
+          </div>
+
+          <div class="modal-action-row">
+            <a id="modalLiveWebsiteLink"
+              class="section-cta section-cta--solid modal-action modal-action--primary inline-flex items-center justify-center gap-2 rounded-md bg-zinc-900 px-4 py-2.5 text-white text-sm font-medium tracking-tight hover:bg-black transition"
+              href="https://swerbzshotz.com" target="_blank" rel="noopener noreferrer">
+              <span>View Live Website</span>
+              <i data-lucide="external-link" class="h-4 w-4"></i>
+            </a>
+          </div>
+
+          <div class="modal-tools" aria-label="Tools used in the project">
+            <span class="modal-tools__pill">HTML</span>
+            <span class="modal-tools__pill">CSS</span>
+            <span class="modal-tools__pill">JavaScript</span>
+            <span class="modal-tools__pill">GA4</span>
+            <span class="modal-tools__pill">Google Tag Manager</span>
+            <span class="modal-tools__pill">Cloudflare</span>
+            <span class="modal-tools__pill">Formspree</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -755,8 +807,9 @@
       setMobileMenuOpen(Boolean(open));
     });
 
-    const projectImage = 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=1600&auto=format&fit=crop';
-    const projectVideo = 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+    const SHOW_UNFINISHED_PROJECTS = false;
+    const projectImage = 'img/swerbzshotz-preview.png';
+    const projectVideo = 'img/swerbzshotz-preview.webm';
     const projectTitle = 'SwerbzShotz Photography';
     const projectDescription = 'Modern photography website built to showcase work, generate bookings, and create a seamless booking experience through responsive design, technical SEO, and polished user experience.';
     const projectCategories = [
@@ -852,10 +905,10 @@
           class="featured-project-card__media relative overflow-hidden aspect-[5/6] block"
           aria-label="Open ${escapeHtml(projectTitle)} in a new tab" data-project-media-link>
           <img src="${escapeHtml(projectImage)}" alt="${escapeHtml(projectTitle)} preview screenshot"
-            class="featured-project-card__media-visual featured-project-card__image absolute inset-0 h-full w-full object-cover"
+            class="featured-project-card__media-visual featured-project-card__image absolute inset-0 h-full w-full"
             loading="lazy" decoding="async">
-          <video class="featured-project-card__media-visual featured-project-card__video absolute inset-0 h-full w-full object-cover"
-            src="${escapeHtml(projectVideo)}" poster="${escapeHtml(projectImage)}" muted loop playsinline preload="none"
+          <video class="featured-project-card__media-visual featured-project-card__video absolute inset-0 h-full w-full"
+            src="${escapeHtml(projectVideo)}" poster="${escapeHtml(projectImage)}" muted loop playsinline autoplay preload="auto"
             aria-hidden="true" data-project-preview-video></video>
           <span class="featured-project-card__overlay" aria-hidden="true">
             <span class="project-media__play">
@@ -888,7 +941,22 @@
       const projectPreviewVideo = cardElement.querySelector('[data-project-preview-video]');
       const mediaLink = cardElement.querySelector('[data-project-media-link]');
       const titleLink = cardElement.querySelector('[data-project-title-link]');
-      let shouldResetVideo = false;
+      const canHoverPreview = window.matchMedia('(any-hover: hover) and (any-pointer: fine)');
+
+      if (projectPreviewVideo) {
+        projectPreviewVideo.autoplay = canHoverPreview.matches;
+        projectPreviewVideo.muted = true;
+        projectPreviewVideo.defaultMuted = true;
+        projectPreviewVideo.playsInline = true;
+
+        if (canHoverPreview.matches) {
+          projectPreviewVideo.load();
+          const initialPlayAttempt = projectPreviewVideo.play();
+          if (initialPlayAttempt && typeof initialPlayAttempt.catch === 'function') {
+            initialPlayAttempt.catch(() => {});
+          }
+        }
+      }
 
       const trackProjectClick = (projectType) => {
         posthog?.capture('project_clicked', {
@@ -898,39 +966,28 @@
       };
 
       const startPreview = () => {
-        if (!projectPreviewVideo || window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+        if (!projectPreviewVideo || !canHoverPreview.matches) return;
 
         cardElement.classList.add('is-previewing');
+
+        if (projectPreviewVideo.readyState < 2) {
+          projectPreviewVideo.load();
+        }
+
+        projectPreviewVideo.currentTime = 0;
         const playAttempt = projectPreviewVideo.play();
 
         if (playAttempt && typeof playAttempt.catch === 'function') {
-          playAttempt.catch(() => {
-            cardElement.classList.remove('is-previewing');
-          });
+          playAttempt.catch(() => {});
         }
       };
 
       const stopPreview = () => {
-        if (!projectPreviewVideo) return;
-
         cardElement.classList.remove('is-previewing');
-        projectPreviewVideo.pause();
-
-        if (projectPreviewVideo.readyState >= 1) {
-          projectPreviewVideo.currentTime = 0;
-          shouldResetVideo = false;
-          return;
-        }
-
-        shouldResetVideo = true;
       };
 
-      projectPreviewVideo?.addEventListener('loadedmetadata', () => {
-        if (!shouldResetVideo) return;
-        projectPreviewVideo.currentTime = 0;
-        shouldResetVideo = false;
-      });
-
+      mediaLink?.addEventListener('pointerenter', startPreview);
+      mediaLink?.addEventListener('pointerleave', stopPreview);
       mediaLink?.addEventListener('mouseenter', startPreview);
       mediaLink?.addEventListener('mouseleave', stopPreview);
       mediaLink?.addEventListener('focus', startPreview);
@@ -956,6 +1013,7 @@
 
     const headerNavLinks = Array.from(document.querySelectorAll('header .site-nav a.site-nav__link[href^="#"]'));
     const mobileNavLinks = Array.from(document.querySelectorAll('#mobileMenu .site-mobile-menu__link[href^="#"]'));
+    const projectsGrid = document.getElementById('projectsGrid');
     const projectFilters = Array.from(document.querySelectorAll('.project-filter'));
     const projectCards = Array.from(document.querySelectorAll('[data-project-card]'));
     const footerEmailCta = document.getElementById('footerEmailCta');
@@ -1086,6 +1144,13 @@
       });
     });
 
+    function updateProjectsGridLayout() {
+      if (!projectsGrid) return;
+
+      const visibleCards = projectCards.filter(card => !card.classList.contains('is-filtered-out'));
+      projectsGrid.classList.toggle('projects-grid--single', visibleCards.length === 1);
+    }
+
     function setActiveNavLink(hash) {
       const normalizedHash = hash || '';
       const allNavLinks = [...headerNavLinks, ...mobileNavLinks];
@@ -1110,10 +1175,14 @@
       });
 
       projectCards.forEach(card => {
+        const projectStatus = card.dataset.projectStatus || 'unfinished';
         const categories = (card.dataset.categories || '').split(/\s+/).filter(Boolean);
-        const matches = filter === 'all' || categories.includes(filter);
-        card.classList.toggle('is-filtered-out', !matches);
+        const matchesFilter = filter === 'all' || categories.includes(filter);
+        const isVisible = (SHOW_UNFINISHED_PROJECTS || projectStatus === 'complete') && matchesFilter;
+        card.classList.toggle('is-filtered-out', !isVisible);
       });
+
+      updateProjectsGridLayout();
     }
 
     projectFilters.forEach(button => {
@@ -1208,11 +1277,27 @@
      */
     let modalShown = false;
     const exitModal = document.getElementById('exitModal');
+    const exitModalBox = exitModal?.querySelector('.modal-box');
     const closeModalBtn = document.getElementById('closeModal');
-    const closeModalBottomBtn = document.getElementById('closeModalBottom');
+    const modalLiveWebsiteLink = document.getElementById('modalLiveWebsiteLink');
     const exitModalOverlay = exitModal?.querySelector('.modal-overlay');
-    const projectsSection = document.getElementById('projects');
     const modalNavGap = 32;
+    let modalLastFocusedElement = null;
+
+    modalLiveWebsiteLink?.setAttribute('href', projectLink);
+
+    function getModalFocusableElements() {
+      if (!exitModal) return [];
+
+      return Array.from(exitModal.querySelectorAll(
+        'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )).filter(element => {
+        if (!(element instanceof HTMLElement)) return false;
+        if (element.closest('.hidden')) return false;
+        if (element.getAttribute('aria-hidden') === 'true') return false;
+        return true;
+      });
+    }
 
     function syncExitModalOffset() {
       if (!exitModal) return;
@@ -1227,13 +1312,20 @@
      */
     function showExitModal() {
       if (!modalShown) {
+        modalLastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
         syncExitModalOffset();
         exitModal.classList.remove('hidden');
+        exitModal.setAttribute('aria-hidden', 'false');
         modalShown = true;
         // Prevent body scroll when modal is open
         document.body.style.overflow = 'hidden';
         // Reinitialize icons for modal buttons
         lucide.createIcons();
+
+        window.requestAnimationFrame(() => {
+          const focusableElements = getModalFocusableElements();
+          (focusableElements[0] || exitModalBox)?.focus();
+        });
       }
     }
 
@@ -1242,7 +1334,12 @@
      */
     function hideExitModal() {
       exitModal.classList.add('hidden');
+      exitModal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
+
+      if (modalLastFocusedElement && typeof modalLastFocusedElement.focus === 'function') {
+        modalLastFocusedElement.focus({ preventScroll: true });
+      }
     }
 
     window.addEventListener('resize', () => {
@@ -1252,22 +1349,7 @@
 
     // Close modal on button click
     closeModalBtn?.addEventListener('click', hideExitModal);
-    closeModalBottomBtn?.addEventListener('click', () => {
-      hideExitModal();
-
-      if (!projectsSection) return;
-
-      const header = document.querySelector('header');
-      const headerHeight = header ? header.offsetHeight : 0;
-      const targetPosition = projectsSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-
-      setActiveNavLink('#projects');
-    });
+    modalLiveWebsiteLink?.addEventListener('click', hideExitModal);
 
     // Close modal when clicking outside
     exitModalOverlay?.addEventListener('click', hideExitModal);
@@ -1279,8 +1361,36 @@
 
     // Close modal on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !exitModal.classList.contains('hidden')) {
+      if (exitModal.classList.contains('hidden')) return;
+
+      if (e.key === 'Escape') {
         hideExitModal();
+        return;
+      }
+
+      if (e.key !== 'Tab') return;
+
+      const focusableElements = getModalFocusableElements();
+      if (!focusableElements.length) {
+        e.preventDefault();
+        exitModalBox?.focus();
+        return;
+      }
+
+      const firstFocusable = focusableElements[0];
+      const lastFocusable = focusableElements[focusableElements.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstFocusable || !exitModal.contains(document.activeElement)) {
+          e.preventDefault();
+          lastFocusable.focus();
+        }
+        return;
+      }
+
+      if (document.activeElement === lastFocusable) {
+        e.preventDefault();
+        firstFocusable.focus();
       }
     });
 
