@@ -1284,23 +1284,21 @@
           button.addEventListener('click', () => switchDevice(button.dataset.deviceToggle));
         });
 
-        card.addEventListener('pointerenter', () => {
+        preview.addEventListener('pointerenter', () => {
           isPointerOver = true;
           syncVisitorPause();
         });
-        card.addEventListener('pointerleave', () => {
+        preview.addEventListener('pointerleave', () => {
           isPointerOver = false;
           syncVisitorPause();
         });
-        card.addEventListener('focusin', (event) => {
-          isFocusWithin = finePointer.matches || event.target.matches(':focus-visible');
+        preview.addEventListener('focus', () => {
+          isFocusWithin = finePointer.matches || preview.matches(':focus-visible');
           syncVisitorPause();
         });
-        card.addEventListener('focusout', (event) => {
-          if (!card.contains(event.relatedTarget)) {
-            isFocusWithin = false;
-            syncVisitorPause();
-          }
+        preview.addEventListener('blur', () => {
+          isFocusWithin = false;
+          syncVisitorPause();
         });
         finePointer.addEventListener('change', syncVisitorPause);
 
