@@ -2994,7 +2994,7 @@ footer a.inline-flex:not(.section-cta).is-clicked,
 }
 
 .featured-project-card.is-preview-paused .project-browser__hint span::after {
-  content: "Paused to inspect";
+  content: "Click to view";
   font-size: 0.68rem;
 }
 
