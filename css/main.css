@@ -2332,8 +2332,8 @@ body {
 .modal-box {
   position: relative;
   z-index: 2;
-  width: min(1100px, calc(100vw - 40px));
-  max-width: 1100px;
+  width: min(1200px, calc(100vw - 40px));
+  max-width: 1200px;
   max-height: 88vh;
   overflow-x: hidden;
   overflow-y: auto;
@@ -2487,7 +2487,7 @@ body {
 
 .modal-content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  grid-template-columns: minmax(0, 0.82fr) minmax(400px, 1.18fr);
   align-items: start;
   gap: 40px;
   margin-top: 2.3rem;
@@ -2498,7 +2498,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  max-width: 620px;
+  max-width: 540px;
 }
 
 .modal-copy__section {
@@ -2576,7 +2576,7 @@ body {
 .modal-media-frame {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;
+  height: clamp(25rem, 48vh, 32rem);
   overflow: hidden;
   border: 1px solid rgba(var(--accent-primary-rgb), 0.14);
   border-radius: 1rem;
@@ -2591,9 +2591,60 @@ body {
 .modal-media-image {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  height: auto;
+  max-width: none;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.modal-browser {
+  display: flex;
+  flex-direction: column;
+  color: #284651;
+  text-decoration: none;
+  transition:
+    transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-browser .project-browser__toolbar {
+  flex: 0 0 2.65rem;
+}
+
+.modal-browser .project-browser__viewport {
+  flex: 1 1 auto;
+  height: auto;
+  min-height: 0;
+}
+
+.modal-browser.is-auto-scrolling .modal-media-image {
+  will-change: transform;
+}
+
+.modal-browser.is-preview-paused .project-browser__hint {
+  color: var(--accent-warm-strong);
+  background: rgba(255, 248, 245, 0.94);
+}
+
+.modal-browser.is-preview-paused .project-browser__hint span {
+  font-size: 0;
+}
+
+.modal-browser.is-preview-paused .project-browser__hint span::after {
+  content: "Click to view";
+  font-size: 0.68rem;
+}
+
+.modal-browser:focus-visible {
+  outline: 3px solid var(--accent-primary-strong);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .modal-browser:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 34px rgba(var(--accent-primary-rgb), 0.18);
+  }
 }
 
 .modal-close {
@@ -2743,6 +2794,10 @@ footer a.inline-flex:not(.section-cta).is-clicked,
   .modal-aside {
     order: 1;
   }
+
+  .modal-media-frame {
+    height: clamp(22rem, 52vw, 28rem);
+  }
 }
 
 @media (max-width: 600px) {
@@ -2761,9 +2816,14 @@ footer a.inline-flex:not(.section-cta).is-clicked,
   }
 
   .modal-heading-row {
-    --modal-heading-control-size: 4.55rem;
+    --modal-heading-control-size: 3.6rem;
     margin-bottom: 1.6rem;
     gap: 0.8rem;
+  }
+
+  .modal-box h2 {
+    font-size: 1.3rem;
+    overflow-wrap: anywhere;
   }
 
   .modal-content-grid {
@@ -2780,7 +2840,7 @@ footer a.inline-flex:not(.section-cta).is-clicked,
   }
 
   .modal-media-frame {
-    min-height: 180px;
+    height: 20rem;
   }
 }
 /* Client websites and connected services inherit the portfolio's brand tokens. */
@@ -2831,6 +2891,18 @@ footer a.inline-flex:not(.section-cta).is-clicked,
 .workflow__step h3 { font-weight: 600; font-size: .95rem; color: #284651; }
 .workflow__step p { font-size: .82rem; line-height: 1.6; color: #526772; margin-top: .25rem; }
 .workflow__detail { display: block; font-size: .7rem; color: #3d6978; margin-top: .5rem; }
+.workflow__step::after,
+.workflow__step::before { display: none; }
+.workflow__connector { position: relative; display: grid; place-items: center; min-height: 3.25rem; padding: .15rem 0; color: #3d6978; font-size: .63rem; font-weight: 700; letter-spacing: .12em; line-height: 1.35; text-align: center; text-transform: uppercase; }
+.workflow__connector::before { content: ''; position: absolute; top: -.25rem; bottom: -.25rem; left: 2.25rem; width: 2px; border-radius: 999px; background: linear-gradient(to bottom, rgba(var(--accent-primary-rgb), .32), var(--accent-primary)); }
+.workflow__connector::after { content: ''; position: absolute; bottom: -.08rem; left: calc(2.25rem - 4px); width: 8px; height: 8px; border-right: 2px solid var(--accent-primary-strong); border-bottom: 2px solid var(--accent-primary-strong); transform: rotate(45deg); }
+.workflow__connector span { position: relative; z-index: 1; max-width: 15rem; padding: .25rem .55rem; border-radius: 999px; background: var(--accent-primary-soft); }
+.career-story { display: grid; gap: 1rem; }
+.career-story__stage { position: relative; padding: 1.05rem 1.1rem 1.05rem 1.35rem; border-left: 2px solid rgba(var(--accent-primary-rgb), .25); border-radius: 0 1rem 1rem 0; background: rgba(255,255,255,.42); }
+.career-story__stage:not(:last-child)::after { content: ''; position: absolute; left: -5px; bottom: -1rem; width: 8px; height: 8px; border-right: 2px solid var(--accent-primary-strong); border-bottom: 2px solid var(--accent-primary-strong); transform: rotate(45deg); }
+.career-story__label { display: block; margin-bottom: .45rem; color: var(--accent-primary-strong); font-size: .72rem; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+.career-story__stage--present { border-left-color: var(--accent-primary); background: linear-gradient(145deg, rgba(231,244,248,.96), rgba(255,255,255,.8)); box-shadow: 10px 12px 25px rgba(var(--accent-primary-rgb), .11); }
+.career-story__stage--present .career-story__label { color: var(--accent-warm-strong); }
 @media (prefers-reduced-motion: no-preference) {
   .workflow__step::before { animation: workflow-direction 3s ease-in-out 2; }
   .workflow__step:nth-child(2)::before { animation-delay: .3s; }
@@ -2843,8 +2915,8 @@ footer a.inline-flex:not(.section-cta).is-clicked,
   .about-media { margin-top: 0; min-width: 0; }
   .workflow { padding: 1rem; }
   .workflow__step { padding: .85rem; }
-  .workflow__step:not(:last-child)::after { left: 2.1rem; }
-  .workflow__step:not(:last-child)::before { left: calc(2.1rem - 3px); }
+  .workflow__connector::before { left: 2.1rem; }
+  .workflow__connector::after { left: calc(2.1rem - 4px); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
