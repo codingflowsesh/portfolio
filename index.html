@@ -283,9 +283,18 @@
               </div>
             </div>
 
-            <figure class="hero-card__column hero-card__column--image">
-              <img src="img/hero-port-clean.png" alt="Portrait of Tom Hernandez" class="hero-image">
-            </figure>
+            <div class="hero-card__column project-showcase" aria-label="Selected client websites">
+              <a class="browser-preview" href="https://la-pinatas.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit L.A. Piñatas (opens in a new tab)">
+                <span class="browser-preview__bar"><span class="browser-preview__dots" aria-hidden="true"><b></b><b></b><b></b></span><span>la-pinatas.com</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
+                <img src="img/la-pinatas-website.jpg" alt="L.A. Piñatas website showing custom piñatas and a quote request" width="1440" height="1000" fetchpriority="high">
+                <span class="browser-preview__caption"><strong>L.A. Piñatas</strong><span>Custom orders &amp; inquiries</span></span>
+              </a>
+              <a class="browser-preview" href="https://swerbzshotz.com/" target="_blank" rel="noopener noreferrer" aria-label="Visit SwerbzShotz (opens in a new tab)">
+                <span class="browser-preview__bar"><span class="browser-preview__dots" aria-hidden="true"><b></b><b></b><b></b></span><span>swerbzshotz.com</span><i data-lucide="arrow-up-right" aria-hidden="true"></i></span>
+                <img src="img/swerbzshotz-website.jpg" alt="SwerbzShotz website showing its photography gallery and booking call to action" width="1440" height="1000" decoding="async">
+                <span class="browser-preview__caption"><strong>SwerbzShotz</strong><span>Photography &amp; bookings</span></span>
+              </a>
+            </div>
           </article>
         </div>
       </div>
@@ -450,13 +459,15 @@
             </div>
           </div>
           <div class="about-media lg:col-span-6">
-            <div class="about-portrait-card relative overflow-hidden rounded-md bg-white">
-              <img
-                src="img/about-section-artwork.png"
-                alt="Illustration of Tom Hernandez working outdoors on a laptop with a city skyline in the background" class="about-portrait-card__image">
-            </div>
-            <p class="about-caption text-sm text-zinc-500">Focused on clarity, performance, and timeless
-              aesthetics.</p>
+            <figure class="workflow" aria-labelledby="workflow-title">
+              <figcaption id="workflow-title">From website to connected business systems</figcaption>
+              <ol class="workflow__steps">
+                <li class="workflow__step"><span class="workflow__icon"><i data-lucide="code-2" aria-hidden="true"></i></span><div><h3>Website Development</h3><p>Responsive pages built for your customers.</p><span class="workflow__detail">Design &amp; build</span></div></li>
+                <li class="workflow__step"><span class="workflow__icon"><i data-lucide="shopping-bag" aria-hidden="true"></i></span><div><h3>CMS &amp; E-commerce</h3><p>Manage content, products, and online stores.</p><span class="workflow__detail">Publish &amp; manage</span></div></li>
+                <li class="workflow__step"><span class="workflow__icon"><i data-lucide="chart-no-axes-combined" aria-hidden="true"></i></span><div><h3>Analytics</h3><p>Understand visits, inquiries, and conversions.</p><span class="workflow__detail">Measure &amp; improve</span></div></li>
+                <li class="workflow__step"><span class="workflow__icon"><i data-lucide="workflow" aria-hidden="true"></i></span><div><h3>Automation</h3><p>Connect forms, email, and follow-up workflows.</p><span class="workflow__detail">Connect &amp; automate</span></div></li>
+              </ol>
+            </figure>
           </div>
         </div>
       </div>
@@ -485,6 +496,10 @@
 
         <div id="projectsGrid" class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <!-- Card 1 -->
+          <article id="pinatasProjectCard"
+            class="group featured-project-card rounded-md border border-zinc-200 bg-white overflow-hidden"
+            data-project-card data-project-status="complete" data-categories="website"></article>
+
           <article id="featuredProjectCard"
             class="group featured-project-card rounded-md border border-zinc-200 bg-white overflow-hidden"
             data-project-card data-project-status="complete" data-categories="website"></article>
@@ -841,8 +856,7 @@
     });
 
     const SHOW_UNFINISHED_PROJECTS = false;
-    const projectImage = 'img/swerbzshotz-preview.png';
-    const projectVideo = 'img/swerbzshotz-preview.webm';
+    const projectImage = 'img/swerbzshotz-full.webp';
     const projectTitle = 'SwerbzShotz Photography';
     const projectDescription = 'Modern photography website built to showcase work, generate bookings, and create a seamless booking experience through responsive design, technical SEO, and polished user experience.';
     const projectCategories = [
@@ -908,12 +922,18 @@
 
       const {
         projectImage,
-        projectVideo,
+        projectImageWidth,
+        projectImageHeight,
         projectTitle,
+        websiteName = projectTitle,
+        websiteDomain,
         projectDescription,
         projectCategories,
         projectLink,
+        caseStudyLink,
+        previewDelay = 0,
         techStack,
+        stackLabel = 'Built With',
         filterCategory = 'website'
       } = projectConfig;
 
@@ -935,20 +955,22 @@
       cardElement.dataset.categories = filterCategory;
       cardElement.innerHTML = `
         <a href="${escapeHtml(projectLink)}" target="_blank" rel="noopener noreferrer"
-          class="featured-project-card__media relative overflow-hidden aspect-[5/6] block"
-          aria-label="Open ${escapeHtml(projectTitle)} in a new tab" data-project-media-link>
-          <img src="${escapeHtml(projectImage)}" alt="${escapeHtml(projectTitle)} preview screenshot"
-            class="featured-project-card__media-visual featured-project-card__image absolute inset-0 h-full w-full"
-            loading="lazy" decoding="async">
-          <video class="featured-project-card__media-visual featured-project-card__video absolute inset-0 h-full w-full"
-            src="${escapeHtml(projectVideo)}" poster="${escapeHtml(projectImage)}" muted loop playsinline autoplay preload="auto"
-            aria-hidden="true" data-project-preview-video></video>
-          <span class="featured-project-card__overlay" aria-hidden="true">
-            <span class="project-media__play">
-              <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false">
-                <path d="M10 7.75L19 14L10 20.25V7.75Z" fill="none" stroke="currentColor" stroke-width="2.8"
-                  stroke-linejoin="round" stroke-linecap="round"></path>
-              </svg>
+          class="featured-project-card__media project-browser"
+          aria-label="Visit ${escapeHtml(websiteName)} website" data-project-media-link data-scrolling-preview
+          data-preview-delay="${Number(previewDelay) || 0}">
+          <span class="project-browser__toolbar" aria-hidden="true">
+            <span class="project-browser__dots"><i></i><i></i><i></i></span>
+            <span class="project-browser__domain">${escapeHtml(websiteDomain)}</span>
+            <i data-lucide="arrow-up-right" class="project-browser__external"></i>
+          </span>
+          <span class="project-browser__viewport" data-preview-viewport>
+            <img src="${escapeHtml(projectImage)}"
+              alt="Full-page preview of the ${escapeHtml(websiteName)} website"
+              class="project-browser__image" width="${Number(projectImageWidth)}" height="${Number(projectImageHeight)}"
+              loading="lazy" decoding="async" data-preview-image>
+            <span class="project-browser__hint" aria-hidden="true">
+              <i data-lucide="mouse" class="h-4 w-4"></i>
+              <span>Live page tour</span>
             </span>
           </span>
         </a>
@@ -956,14 +978,14 @@
           <div class="flex items-center gap-2">
             ${categoryMarkup}
           </div>
-          <a href="${escapeHtml(projectLink)}" target="_blank" rel="noopener noreferrer"
-            class="featured-project-card__title mt-3 text-lg font-semibold tracking-tight block hover:text-zinc-600 transition"
-            aria-label="Open ${escapeHtml(projectTitle)} in a new tab" data-project-title-link>
-            <h3>${escapeHtml(projectTitle)}</h3>
-          </a>
+          <h3 class="featured-project-card__title mt-3 text-lg font-semibold tracking-tight">${escapeHtml(projectTitle)}</h3>
           <p class="mt-2 text-sm text-zinc-600">${escapeHtml(projectDescription)}</p>
+          <a href="${escapeHtml(caseStudyLink)}" class="project-case-study-link" data-project-case-study>
+            <span>View Case Study</span>
+            <i data-lucide="arrow-right" aria-hidden="true"></i>
+          </a>
           <div class="featured-project-card__stack">
-            <p class="featured-project-card__stack-label">Built With</p>
+            <p class="featured-project-card__stack-label">${escapeHtml(stackLabel)}</p>
             <ul class="featured-project-card__stack-list" role="list">
               ${stackMarkup}
             </ul>
@@ -971,25 +993,8 @@
         </div>
       `;
 
-      const projectPreviewVideo = cardElement.querySelector('[data-project-preview-video]');
       const mediaLink = cardElement.querySelector('[data-project-media-link]');
-      const titleLink = cardElement.querySelector('[data-project-title-link]');
-      const canHoverPreview = window.matchMedia('(any-hover: hover) and (any-pointer: fine)');
-
-      if (projectPreviewVideo) {
-        projectPreviewVideo.autoplay = canHoverPreview.matches;
-        projectPreviewVideo.muted = true;
-        projectPreviewVideo.defaultMuted = true;
-        projectPreviewVideo.playsInline = true;
-
-        if (canHoverPreview.matches) {
-          projectPreviewVideo.load();
-          const initialPlayAttempt = projectPreviewVideo.play();
-          if (initialPlayAttempt && typeof initialPlayAttempt.catch === 'function') {
-            initialPlayAttempt.catch(() => {});
-          }
-        }
-      }
+      const caseStudyLinkElement = cardElement.querySelector('[data-project-case-study]');
 
       const trackProjectClick = (projectType) => {
         posthog?.capture('project_clicked', {
@@ -998,48 +1003,208 @@
         });
       };
 
-      const startPreview = () => {
-        if (!projectPreviewVideo || !canHoverPreview.matches) return;
-
-        cardElement.classList.add('is-previewing');
-
-        if (projectPreviewVideo.readyState < 2) {
-          projectPreviewVideo.load();
-        }
-
-        projectPreviewVideo.currentTime = 0;
-        const playAttempt = projectPreviewVideo.play();
-
-        if (playAttempt && typeof playAttempt.catch === 'function') {
-          playAttempt.catch(() => {});
-        }
-      };
-
-      const stopPreview = () => {
-        cardElement.classList.remove('is-previewing');
-      };
-
-      mediaLink?.addEventListener('pointerenter', startPreview);
-      mediaLink?.addEventListener('pointerleave', stopPreview);
-      mediaLink?.addEventListener('mouseenter', startPreview);
-      mediaLink?.addEventListener('mouseleave', stopPreview);
-      mediaLink?.addEventListener('focus', startPreview);
-      mediaLink?.addEventListener('blur', stopPreview);
       mediaLink?.addEventListener('click', () => trackProjectClick('image'));
-      titleLink?.addEventListener('click', () => trackProjectClick('title'));
+      caseStudyLinkElement?.addEventListener('click', () => trackProjectClick('case-study'));
 
       lucide.createIcons();
     }
 
     renderProjectCard(document.getElementById('featuredProjectCard'), {
       projectImage,
-      projectVideo,
+      projectImageWidth: 1440,
+      projectImageHeight: 6564,
       projectTitle,
+      websiteName: 'SwerbzShotz',
+      websiteDomain: 'swerbzshotz.com',
       projectDescription,
       projectCategories,
       projectLink,
+      caseStudyLink: 'case-study/swerbzshotz/',
+      previewDelay: 2600,
       techStack
     });
+
+    renderProjectCard(document.getElementById('pinatasProjectCard'), {
+      projectImage: 'img/la-pinatas-full.webp',
+      projectImageWidth: 1440,
+      projectImageHeight: 4560,
+      projectTitle: 'L.A. Piñatas',
+      websiteDomain: 'la-pinatas.com',
+      projectDescription: 'A custom piñata website showcasing handcrafted designs, size options, and a clear path from inspiration to a custom quote.',
+      projectCategories: ['Local Business', 'Custom Orders'],
+      projectLink: 'https://la-pinatas.com/',
+      caseStudyLink: 'case-study/la-pinatas/',
+      previewDelay: 600,
+      stackLabel: 'Website Features',
+      techStack: [
+        { label: 'Responsive Website', icon: 'monitor-smartphone' },
+        { label: 'Product Gallery', icon: 'images' },
+        { label: 'Quote Inquiries', icon: 'message-square' }
+      ]
+    });
+
+    function initScrollingPreviews() {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const mobileLayout = window.matchMedia('(max-width: 767px)');
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const previews = Array.from(document.querySelectorAll('[data-scrolling-preview]'));
+
+      previews.forEach((preview) => {
+        const card = preview.closest('[data-project-card]');
+        const viewport = preview.querySelector('[data-preview-viewport]');
+        const image = preview.querySelector('[data-preview-image]');
+        if (!card || !viewport || !image) return;
+
+        let frame = null;
+        let lastTime = null;
+        let phase = 'delay';
+        let phaseElapsed = 0;
+        let distance = 0;
+        let isVisible = false;
+        let isPausedByVisitor = false;
+        let isPointerOver = false;
+        let isFocusWithin = false;
+
+        const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+        const easeInOut = (value) => value < 0.5
+          ? 4 * value * value * value
+          : 1 - Math.pow(-2 * value + 2, 3) / 2;
+
+        function measure() {
+          distance = Math.max(0, image.getBoundingClientRect().height - viewport.clientHeight);
+        }
+
+        function setOffset(value) {
+          image.style.transform = `translate3d(0, ${-Math.max(0, value)}px, 0)`;
+        }
+
+        function resetPreview() {
+          if (frame !== null) cancelAnimationFrame(frame);
+          frame = null;
+          lastTime = null;
+          phase = 'delay';
+          phaseElapsed = 0;
+          card.classList.remove('is-auto-scrolling', 'is-preview-paused');
+          setOffset(0);
+        }
+
+        function shouldRun() {
+          return isVisible && !isPausedByVisitor && !reduceMotion.matches && !document.hidden && distance > 0;
+        }
+
+        function phaseDuration() {
+          if (phase === 'delay') return Number(preview.dataset.previewDelay) || 0;
+          if (phase === 'top') return mobileLayout.matches ? 3200 : 2400;
+          if (phase === 'down') {
+            const pixelsPerSecond = mobileLayout.matches ? 32 : 48;
+            return clamp((distance / pixelsPerSecond) * 1000, mobileLayout.matches ? 28000 : 22000, 52000);
+          }
+          if (phase === 'bottom') return mobileLayout.matches ? 3000 : 2400;
+          return mobileLayout.matches ? 5600 : 4200;
+        }
+
+        function nextPhase() {
+          phaseElapsed = 0;
+          phase = ({ delay: 'top', top: 'down', down: 'bottom', bottom: 'up', up: 'top' })[phase];
+        }
+
+        function draw() {
+          const duration = Math.max(1, phaseDuration());
+          const progress = Math.min(phaseElapsed / duration, 1);
+
+          if (phase === 'delay' || phase === 'top') setOffset(0);
+          if (phase === 'down') setOffset(distance * progress);
+          if (phase === 'bottom') setOffset(distance);
+          if (phase === 'up') setOffset(distance * (1 - easeInOut(progress)));
+
+          if (progress >= 1) nextPhase();
+        }
+
+        function tick(time) {
+          if (!shouldRun()) {
+            frame = null;
+            lastTime = null;
+            card.classList.remove('is-auto-scrolling');
+            return;
+          }
+
+          if (lastTime === null) lastTime = time;
+          phaseElapsed += Math.min(time - lastTime, 100);
+          lastTime = time;
+          card.classList.add('is-auto-scrolling');
+          draw();
+          frame = requestAnimationFrame(tick);
+        }
+
+        function startIfReady() {
+          measure();
+          if (reduceMotion.matches) {
+            resetPreview();
+            return;
+          }
+          if (shouldRun() && frame === null) frame = requestAnimationFrame(tick);
+        }
+
+        function syncVisitorPause() {
+          const paused = isFocusWithin || (finePointer.matches && isPointerOver);
+          isPausedByVisitor = paused;
+          card.classList.toggle('is-preview-paused', paused);
+          if (paused && frame !== null) {
+            cancelAnimationFrame(frame);
+            frame = null;
+            lastTime = null;
+            card.classList.remove('is-auto-scrolling');
+          } else if (!paused) {
+            startIfReady();
+          }
+        }
+
+        card.addEventListener('pointerenter', () => {
+          isPointerOver = true;
+          syncVisitorPause();
+        });
+        card.addEventListener('pointerleave', () => {
+          isPointerOver = false;
+          syncVisitorPause();
+        });
+        card.addEventListener('focusin', () => {
+          isFocusWithin = true;
+          syncVisitorPause();
+        });
+        card.addEventListener('focusout', (event) => {
+          if (!card.contains(event.relatedTarget)) {
+            isFocusWithin = false;
+            syncVisitorPause();
+          }
+        });
+        finePointer.addEventListener('change', syncVisitorPause);
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver((entries) => {
+            isVisible = entries[0]?.isIntersecting === true;
+            if (isVisible) startIfReady();
+            else if (frame !== null) {
+              cancelAnimationFrame(frame);
+              frame = null;
+              lastTime = null;
+              card.classList.remove('is-auto-scrolling');
+            }
+          }, { threshold: 0.12 });
+          observer.observe(preview);
+        } else {
+          isVisible = true;
+        }
+
+        image.addEventListener('load', startIfReady, { once: true });
+        if (image.complete) startIfReady();
+        if ('ResizeObserver' in window) new ResizeObserver(startIfReady).observe(viewport);
+        reduceMotion.addEventListener('change', startIfReady);
+        mobileLayout.addEventListener('change', startIfReady);
+        document.addEventListener('visibilitychange', startIfReady);
+      });
+    }
+
+    initScrollingPreviews();
 
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -1123,7 +1288,7 @@
       const targetTop = Math.max(0, Math.min(rawTarget, maxScrollTop));
 
       if (prefersReducedMotion.matches) {
-        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+        window.scrollTo({ top: targetTop, behavior: 'instant' });
         if (typeof onComplete === 'function') {
           window.setTimeout(onComplete, 320);
         }
@@ -1182,6 +1347,7 @@
 
       const visibleCards = projectCards.filter(card => !card.classList.contains('is-filtered-out'));
       projectsGrid.classList.toggle('projects-grid--single', visibleCards.length === 1);
+      projectsGrid.classList.toggle('projects-grid--pair', visibleCards.length === 2);
     }
 
     function setActiveNavLink(hash) {
