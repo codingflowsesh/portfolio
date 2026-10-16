@@ -924,6 +924,9 @@
         projectImage,
         projectImageWidth,
         projectImageHeight,
+        projectMobileImage,
+        projectMobileImageWidth,
+        projectMobileImageHeight,
         projectTitle,
         websiteName = projectTitle,
         websiteDomain,
@@ -954,26 +957,47 @@
 
       cardElement.dataset.categories = filterCategory;
       cardElement.innerHTML = `
-        <a href="${escapeHtml(projectLink)}" target="_blank" rel="noopener noreferrer"
-          class="featured-project-card__media project-browser"
-          aria-label="Visit ${escapeHtml(websiteName)} website" data-project-media-link data-scrolling-preview
-          data-preview-delay="${Number(previewDelay) || 0}">
-          <span class="project-browser__toolbar" aria-hidden="true">
-            <span class="project-browser__dots"><i></i><i></i><i></i></span>
-            <span class="project-browser__domain">${escapeHtml(websiteDomain)}</span>
-            <i data-lucide="arrow-up-right" class="project-browser__external"></i>
-          </span>
-          <span class="project-browser__viewport" data-preview-viewport>
-            <img src="${escapeHtml(projectImage)}"
-              alt="Full-page preview of the ${escapeHtml(websiteName)} website"
-              class="project-browser__image" width="${Number(projectImageWidth)}" height="${Number(projectImageHeight)}"
-              loading="lazy" decoding="async" data-preview-image>
-            <span class="project-browser__hint" aria-hidden="true">
-              <i data-lucide="mouse" class="h-4 w-4"></i>
-              <span>Live page tour</span>
-            </span>
-          </span>
-        </a>
+        <div class="device-preview" data-device-preview>
+          <div class="device-toggle" role="group" aria-label="Preview device">
+            <span class="device-toggle__active" aria-hidden="true"></span>
+            <button type="button" class="device-toggle__button is-selected" aria-pressed="true" data-device-toggle="desktop">
+              <i data-lucide="monitor" aria-hidden="true"></i><span>Desktop</span>
+            </button>
+            <button type="button" class="device-toggle__button" aria-pressed="false" data-device-toggle="mobile">
+              <i data-lucide="smartphone" aria-hidden="true"></i><span>Mobile</span>
+            </button>
+          </div>
+          <div class="project-preview-stage" data-preview-stage>
+            <a href="${escapeHtml(projectLink)}" target="_blank" rel="noopener noreferrer"
+              class="featured-project-card__media project-browser"
+              aria-label="Visit ${escapeHtml(websiteName)} website" data-project-media-link data-scrolling-preview
+              data-preview-delay="${Number(previewDelay) || 0}" data-device="desktop">
+              <span class="project-browser__toolbar" aria-hidden="true">
+                <span class="project-browser__dots"><i></i><i></i><i></i></span>
+                <span class="project-browser__domain">${escapeHtml(websiteDomain)}</span>
+                <i data-lucide="arrow-up-right" class="project-browser__external"></i>
+              </span>
+              <span class="project-browser__viewport" data-preview-viewport>
+                <span class="project-browser__shot is-active" data-device-shot="desktop">
+                  <img src="${escapeHtml(projectImage)}"
+                    alt="Desktop preview of the ${escapeHtml(websiteName)} website"
+                    class="project-browser__image" width="${Number(projectImageWidth)}" height="${Number(projectImageHeight)}"
+                    loading="lazy" decoding="async" data-preview-image data-device-image="desktop">
+                </span>
+                <span class="project-browser__shot" data-device-shot="mobile" aria-hidden="true">
+                  <img src="${escapeHtml(projectMobileImage)}"
+                    alt="Mobile preview of the ${escapeHtml(websiteName)} website"
+                    class="project-browser__image" width="${Number(projectMobileImageWidth)}" height="${Number(projectMobileImageHeight)}"
+                    loading="lazy" decoding="async" data-preview-image data-device-image="mobile">
+                </span>
+                <span class="project-browser__hint" aria-hidden="true">
+                  <i data-lucide="mouse" class="h-4 w-4"></i>
+                  <span>Live page tour</span>
+                </span>
+              </span>
+            </a>
+          </div>
+        </div>
         <div class="p-5">
           <div class="flex items-center gap-2">
             ${categoryMarkup}
@@ -1013,6 +1037,9 @@
       projectImage,
       projectImageWidth: 1440,
       projectImageHeight: 6564,
+      projectMobileImage: 'img/swerbzshotz-mobile-full.webp',
+      projectMobileImageWidth: 390,
+      projectMobileImageHeight: 8776,
       projectTitle,
       websiteName: 'SwerbzShotz',
       websiteDomain: 'swerbzshotz.com',
@@ -1028,6 +1055,9 @@
       projectImage: 'img/la-pinatas-full.webp',
       projectImageWidth: 1440,
       projectImageHeight: 4560,
+      projectMobileImage: 'img/la-pinatas-mobile-full.webp',
+      projectMobileImageWidth: 390,
+      projectMobileImageHeight: 5622,
       projectTitle: 'L.A. Piñatas',
       websiteDomain: 'la-pinatas.com',
       projectDescription: 'A custom piñata website showcasing handcrafted designs, size options, and a clear path from inspiration to a custom quote.',
@@ -1051,49 +1081,79 @@
 
       previews.forEach((preview) => {
         const card = preview.closest('[data-project-card]');
+        const devicePreview = preview.closest('[data-device-preview]');
         const viewport = preview.querySelector('[data-preview-viewport]');
-        const image = preview.querySelector('[data-preview-image]');
-        if (!card || !viewport || !image) return;
+        const images = {
+          desktop: preview.querySelector('[data-device-image="desktop"]'),
+          mobile: preview.querySelector('[data-device-image="mobile"]')
+        };
+        const shots = {
+          desktop: preview.querySelector('[data-device-shot="desktop"]'),
+          mobile: preview.querySelector('[data-device-shot="mobile"]')
+        };
+        const toggleButtons = Array.from(devicePreview?.querySelectorAll('[data-device-toggle]') || []);
+        if (!card || !devicePreview || !viewport || !images.desktop || !images.mobile) return;
 
-        let frame = null;
+        let animationFrame = null;
         let lastTime = null;
         let phase = 'delay';
         let phaseElapsed = 0;
         let distance = 0;
+        let device = 'desktop';
         let isVisible = false;
         let isPausedByVisitor = false;
         let isPointerOver = false;
         let isFocusWithin = false;
+        let isMorphing = false;
+        let morphTimer = null;
+        let shotSwapTimer = null;
+        const initialDelay = Number(preview.dataset.previewDelay) || 0;
+        let delayDuration = initialDelay;
 
         const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
         const easeInOut = (value) => value < 0.5
           ? 4 * value * value * value
           : 1 - Math.pow(-2 * value + 2, 3) / 2;
 
+        function activeImage() {
+          return images[device];
+        }
+
         function measure() {
-          distance = Math.max(0, image.getBoundingClientRect().height - viewport.clientHeight);
+          distance = Math.max(0, activeImage().getBoundingClientRect().height - viewport.clientHeight);
         }
 
         function setOffset(value) {
-          image.style.transform = `translate3d(0, ${-Math.max(0, value)}px, 0)`;
+          activeImage().style.transform = `translate3d(0, ${-Math.max(0, value)}px, 0)`;
+        }
+
+        function resetImageOffsets() {
+          Object.values(images).forEach((image) => {
+            image.style.transform = 'translate3d(0, 0, 0)';
+          });
+        }
+
+        function stopAutoScroll() {
+          if (animationFrame !== null) cancelAnimationFrame(animationFrame);
+          animationFrame = null;
+          lastTime = null;
+          card.classList.remove('is-auto-scrolling');
         }
 
         function resetPreview() {
-          if (frame !== null) cancelAnimationFrame(frame);
-          frame = null;
-          lastTime = null;
+          stopAutoScroll();
           phase = 'delay';
           phaseElapsed = 0;
-          card.classList.remove('is-auto-scrolling', 'is-preview-paused');
-          setOffset(0);
+          delayDuration = initialDelay;
+          resetImageOffsets();
         }
 
         function shouldRun() {
-          return isVisible && !isPausedByVisitor && !reduceMotion.matches && !document.hidden && distance > 0;
+          return isVisible && !isPausedByVisitor && !isMorphing && !reduceMotion.matches && !document.hidden && distance > 0;
         }
 
         function phaseDuration() {
-          if (phase === 'delay') return Number(preview.dataset.previewDelay) || 0;
+          if (phase === 'delay') return delayDuration;
           if (phase === 'top') return mobileLayout.matches ? 3200 : 2400;
           if (phase === 'down') {
             const pixelsPerSecond = mobileLayout.matches ? 32 : 48;
@@ -1105,6 +1165,7 @@
 
         function nextPhase() {
           phaseElapsed = 0;
+          if (phase === 'delay') delayDuration = initialDelay;
           phase = ({ delay: 'top', top: 'down', down: 'bottom', bottom: 'up', up: 'top' })[phase];
         }
 
@@ -1122,7 +1183,7 @@
 
         function tick(time) {
           if (!shouldRun()) {
-            frame = null;
+            animationFrame = null;
             lastTime = null;
             card.classList.remove('is-auto-scrolling');
             return;
@@ -1133,7 +1194,7 @@
           lastTime = time;
           card.classList.add('is-auto-scrolling');
           draw();
-          frame = requestAnimationFrame(tick);
+          animationFrame = requestAnimationFrame(tick);
         }
 
         function startIfReady() {
@@ -1142,22 +1203,86 @@
             resetPreview();
             return;
           }
-          if (shouldRun() && frame === null) frame = requestAnimationFrame(tick);
+          if (shouldRun() && animationFrame === null) animationFrame = requestAnimationFrame(tick);
         }
 
         function syncVisitorPause() {
           const paused = isFocusWithin || (finePointer.matches && isPointerOver);
           isPausedByVisitor = paused;
           card.classList.toggle('is-preview-paused', paused);
-          if (paused && frame !== null) {
-            cancelAnimationFrame(frame);
-            frame = null;
-            lastTime = null;
-            card.classList.remove('is-auto-scrolling');
+          if (paused) {
+            stopAutoScroll();
           } else if (!paused) {
             startIfReady();
           }
         }
+
+        function setActiveShot(nextDevice) {
+          Object.entries(shots).forEach(([shotDevice, shot]) => {
+            const isActive = shotDevice === nextDevice;
+            shot.classList.toggle('is-active', isActive);
+            shot.setAttribute('aria-hidden', String(!isActive));
+          });
+        }
+
+        function setToggleState(nextDevice) {
+          devicePreview.classList.toggle('is-mobile-selected', nextDevice === 'mobile');
+          toggleButtons.forEach((button) => {
+            const isSelected = button.dataset.deviceToggle === nextDevice;
+            button.classList.toggle('is-selected', isSelected);
+            button.setAttribute('aria-pressed', String(isSelected));
+          });
+        }
+
+        async function switchDevice(nextDevice) {
+          if (!images[nextDevice] || nextDevice === device || isMorphing) return;
+
+          stopAutoScroll();
+          resetImageOffsets();
+          phase = 'delay';
+          phaseElapsed = 0;
+          isMorphing = true;
+          card.classList.add('is-device-morphing');
+
+          const targetImage = images[nextDevice];
+          if (typeof targetImage.decode === 'function') {
+            await targetImage.decode().catch(() => {});
+          }
+
+          device = nextDevice;
+          preview.dataset.device = nextDevice;
+          card.classList.toggle('is-device-mobile', nextDevice === 'mobile');
+          setToggleState(nextDevice);
+
+          const duration = reduceMotion.matches ? 180 : 560;
+          const swapDelay = reduceMotion.matches ? 0 : 110;
+
+          if (!reduceMotion.matches && typeof preview.animate === 'function') {
+            preview.animate({
+              transform: ['scale(1, 1)', 'scale(1.015, 0.97)', 'scale(0.995, 1.02)', 'scale(1, 1)']
+            }, {
+              duration,
+              easing: 'cubic-bezier(0.16, 1, 0.3, 1)'
+            });
+          }
+
+          window.clearTimeout(shotSwapTimer);
+          shotSwapTimer = window.setTimeout(() => setActiveShot(nextDevice), swapDelay);
+
+          window.clearTimeout(morphTimer);
+          morphTimer = window.setTimeout(() => {
+            setActiveShot(nextDevice);
+            isMorphing = false;
+            card.classList.remove('is-device-morphing');
+            delayDuration = 700 + Math.min(initialDelay, 500);
+            measure();
+            startIfReady();
+          }, duration);
+        }
+
+        toggleButtons.forEach((button) => {
+          button.addEventListener('click', () => switchDevice(button.dataset.deviceToggle));
+        });
 
         card.addEventListener('pointerenter', () => {
           isPointerOver = true;
@@ -1167,8 +1292,8 @@
           isPointerOver = false;
           syncVisitorPause();
         });
-        card.addEventListener('focusin', () => {
-          isFocusWithin = true;
+        card.addEventListener('focusin', (event) => {
+          isFocusWithin = finePointer.matches || event.target.matches(':focus-visible');
           syncVisitorPause();
         });
         card.addEventListener('focusout', (event) => {
@@ -1183,20 +1308,15 @@
           const observer = new IntersectionObserver((entries) => {
             isVisible = entries[0]?.isIntersecting === true;
             if (isVisible) startIfReady();
-            else if (frame !== null) {
-              cancelAnimationFrame(frame);
-              frame = null;
-              lastTime = null;
-              card.classList.remove('is-auto-scrolling');
-            }
+            else stopAutoScroll();
           }, { threshold: 0.12 });
           observer.observe(preview);
         } else {
           isVisible = true;
         }
 
-        image.addEventListener('load', startIfReady, { once: true });
-        if (image.complete) startIfReady();
+        Object.values(images).forEach((image) => image.addEventListener('load', startIfReady, { once: true }));
+        if (images.desktop.complete) startIfReady();
         if ('ResizeObserver' in window) new ResizeObserver(startIfReady).observe(viewport);
         reduceMotion.addEventListener('change', startIfReady);
         mobileLayout.addEventListener('change', startIfReady);
